@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Притяжение земли — Смешарики. Спорт</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Unbounded:wght@700;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- Стили для анимации огурца (вылетает из Копатыча) -->
+  <style>
+    .cucumber-pop {
+      position: fixed;
+      font-size: 5rem;
+      z-index: 10000;
+      pointer-events: none;
+      /* Анимация: выпрыгивает, крутится и падает */
+      animation: cucumberFly 2.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      transform-origin: center;
+    }
+    @keyframes cucumberFly {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      15% { transform: scale(1.5) rotate(45deg); opacity: 1; }
+      30% { transform: scale(1) rotate(90deg); }
+      100% { transform: translateY(110vh) rotate(720deg) scale(0.7); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <div class="ticker">
+    <div class="ticker__wrap">
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+      <span>Зинин Платон Павлович · ИС1-25</span>
+    </div>
+  </div>
+
+  <header class="hero" id="hero">
+    <div class="stars" id="stars"></div>
+    <div class="hero__content">
+      <p class="hero__kicker">Смешарики · Спорт</p>
+      <h1 class="hero__title">
+        <span class="line">ПРИТЯЖЕНИЕ</span>
+        <span class="line line--accent">ЗЕМЛИ</span>
+      </h1>
+      <p class="hero__subtitle">
+        История о том, как Кар-Карыч и Копатыч доказали:
+        <strong>«плато» — не приговор</strong>, а этап, который берётся упорством.
+      </p>
+      <a href="#watch" class="btn btn--primary">
+        Смотреть серию <span class="btn__arrow">▶</span>
+      </a>
+      <div class="hero__stats">
+        <div class="stat">
+          <span class="stat__num" data-count="2">0</span>
+          <span class="stat__label">года «плато»</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="365">0</span>
+          <span class="stat__label">дней тренировок</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="1">0</span>
+          <span class="stat__label">победа над собой</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__barbell">
+      <div class="barbell">
+        <span class="plate plate--left"></span>
+        <span class="bar"></span>
+        <span class="plate plate--right"></span>
+      </div>
+      <p class="barbell__caption">Та самая штанга. 2 года. Один рывок.</p>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+  </header>
+
+  <section class="watch" id="watch">
+    <h2 class="section-title">
+      <span class="section-title__bg">ВИДЕО</span> Смотреть серию
+    </h2>
+    <p class="watch__desc">Окунись в атмосферу «плато» и победы над собой прямо на сайте.</p>
+    <div class="watch__container reveal">
+      <video controls preload="metadata" poster="img/kopatych.png" style="width: 100%; height: 100%; object-fit: contain; background: #000; border-radius: inherit;">
+        <source src="8024522951341.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+    </div>
+  </section>
+
+  <section class="journey" id="journey">
+    <h2 class="section-title">
+      <span class="section-title__bg">ТРЕНИРОВКА</span> Путь Кар-Карыча
+    </h2>
+    <p class="journey__desc">Пройди путь от лёгких гантелей до преодоления «плато». Жми «Тренироваться» и следи за силой.</p>
+
+    <div class="journey__box reveal">
+      <div class="journey__status">
+        <span class="journey__day">День <span id="dayCount">1</span></span>
+        <span class="journey__weight">Вес: <span id="weightCount">2</span> кг</span>
+      </div>
+      <div class="journey__track">
+        <div class="journey__fill" id="journeyFill"></div>
+        <div class="journey__plateau" style="left: 70%;">
+          <span class="journey__plateau-text">ПЛАТО</span>
+        </div>
+      </div>
+      <div class="journey__controls">
+        <button class="journey__btn" id="trainBtn">ТРЕНИРОВАТЬСЯ</button>
+        <button class="journey__btn journey__btn--reset" id="resetBtn" style="display:none;">Начать заново</button>
+      </div>
+      <p class="journey__message" id="journeyMsg">Каждый день — маленький шаг к силе.</p>
+    </div>
+  </section>
+
+  <section class="plot" id="plot">
+    <h2 class="section-title">
+      <span class="section-title__bg">СЮЖЕТ</span> Сюжет серии
+    </h2>
+    <div class="timeline">
+      <article class="timeline__item reveal">
+        <div class="timeline__num">01</div>
+        <div class="timeline__card">
+          <h3>Удивление Карыча</h3>
+          <p>Кар-Карыч наблюдает, как Копатыч играючи поднимает тяжёлые гири. Сам ворон не может справиться даже с лёгкими гантелями — и это становится началом большого пути.</p>
+        </div>
+      </article>
+      <article class="timeline__item reveal">
+        <div class="timeline__num">02</div>
+        <div class="timeline__card">
+          <h3>Правило постепенности</h3>
+          <p>Копатыч объясняет: в тяжёлой атлетике к весу подходят постепенно. С каждой тренировкой нагрузку увеличивают — мышцы привыкают, а когда текущий вес становится лёгким, его повышают.</p>
+        </div>
+      </article>
+      <article class="timeline__item reveal">
+        <div class="timeline__num">03</div>
+        <div class="timeline__card">
+          <h3>«Плато» Копатыча</h3>
+          <p>Медведь признаётся: два года он не может одолеть одну штангу. Это то самое «плато» — состояние, когда кажется, что больший вес уже не поднять. Но даже его можно преодолеть упорными тренировками.</p>
+        </div>
+      </article>
+      <article class="timeline__item reveal">
+        <div class="timeline__num">04</div>
+        <div class="timeline__card">
+          <h3>Ежедневные тренировки</h3>
+          <p>Друзья тренируются вместе каждый день. Постепенно Кар-Карыч поднимает всё более тяжёлые веса и догоняет Копатыча по силе.</p>
+        </div>
+      </article>
+      <article class="timeline__item reveal">
+        <div class="timeline__num">05</div>
+        <div class="timeline__card timeline__card--accent">
+          <h3>Новый вызов</h3>
+          <p>Карыч берёт новый, ещё более сложный вес — и сталкивается с серьёзными трудностями. Тогда Копатыч, желая показать правильный подход, сам берёт штангу и поднимает её.</p>
+        </div>
+      </article>
+      <article class="timeline__item reveal">
+        <div class="timeline__num">06</div>
+        <div class="timeline__card timeline__card--win">
+          <h3>Победа над «плато»</h3>
+          <p>Кар-Карыч замечает: это тот самый вес, который Копатыч не мог поднять два года назад. Медведь осознаёт это — и на его лице появляется широкая улыбка. «Плато» взято. Упорство победило.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="characters" id="characters">
+    <h2 class="section-title">
+      <span class="section-title__bg">ГЕРОИ</span> Герои серии
+    </h2>
+    <div class="characters__grid">
+      <div class="char-card reveal" data-name="Копатыч">
+        <div class="char-card__glow"></div>
+        <div class="char-card__img" id="secretKopatych" style="cursor: pointer; position: relative;" title="Кликни 5 раз...">
+          <img src="img/kopatych.png" alt="Копатыч" onerror="this.style.display='none'; this.parentElement.classList.add('emoji-fallback'); this.parentElement.dataset.emoji='🐻';" />
+        </div>
+        <h3>Копатыч</h3>
+        <p class="char-card__role">Тренер · Медведь</p>
+        <p class="char-card__desc">Два года стоял на «плато». Доказал: даже самый тяжёлый вес однажды поддастся — если не сдаваться.</p>
+        <div class="char-card__bar">
+          <span style="--w: 95%">Сила</span>
+          <span style="--w: 100%">Терпение</span>
+          <span style="--w: 90%">Мудрость</span>
+        </div>
+      </div>
+
+      <div class="char-card reveal karych-card" data-name="Кар-Карыч">
+        <div class="char-card__glow"></div>
+        <div class="char-card__img">
+          <img src="img/karych.png" alt="Кар-Карыч" onerror="this.style.display='none'; this.parentElement.classList.add('emoji-fallback'); this.parentElement.dataset.emoji='🐦';" />
+        </div>
+        <h3>Кар-Карыч</h3>
+        <p class="char-card__role">Ученик · Ворон</p>
+        <p class="char-card__desc">Начал с лёгких гантелей — и догнал Копатыча по силе. Пример того, что систематичность важнее таланта.</p>
+        <div class="char-card__bar">
+          <span style="--w: 70%">Старт</span>
+          <span style="--w: 92%">Прогресс</span>
+          <span style="--w: 88%">Упорство</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="meaning" id="meaning">
+    <div class="meaning__inner">
+      <h2 class="section-title section-title--light">
+        <span class="section-title__bg">СМЫСЛ</span> Главная мысль
+      </h2>
+      <blockquote class="quote reveal">
+        «Притяжение земли не обманешь. Но и оно не обманет того, кто тренируется каждый день.»
+      </blockquote>
+      <div class="meaning__cards">
+        <div class="meaning-card reveal">
+          <span class="meaning-card__icon">📈</span>
+          <h3>Систематичность</h3>
+          <p>Регулярность важнее разовых подвигов. Каждый день — маленький шаг.</p>
+        </div>
+        <div class="meaning-card reveal">
+          <span class="meaning-card__icon">🧱</span>
+          <h3>Постепенность</h3>
+          <p>Нагрузку повышают тогда, когда текущий вес стал привычным.</p>
+        </div>
+        <div class="meaning-card reveal">
+          <span class="meaning-card__icon">🔥</span>
+          <h3>Преодоление «плато»</h3>
+          <p>Даже двухлетний застой берётся упорством. Не сдавайся.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lift" id="lift">
+    <h2 class="section-title">
+      <span class="section-title__bg">ИНТЕРАКТИВ</span> Подними штангу
+    </h2>
+    <p class="lift__hint">Зажми кнопку и держи — почувствуй притяжение земли.</p>
+    <div class="lift__scene">
+      <div class="lift__barbell" id="liftBarbell">
+        <span class="lift__plate lift__plate--l"></span>
+        <span class="lift__bar"></span>
+        <span class="lift__plate lift__plate--r"></span>
+      </div>
+      <div class="lift__track">
+        <div class="lift__progress" id="liftProgress"></div>
+      </div>
+    </div>
+    <button class="lift__btn" id="liftBtn">ДЕРЖАТЬ</button>
+    <p class="lift__result" id="liftResult"></p>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <h2 class="section-title">
+      <span class="section-title__bg">ОТЗЫВЫ</span> Твоё мнение
+    </h2>
+    <p class="reviews__desc">Поделись впечатлением о серии и её главной мысли.</p>
+    <div class="reviews__container">
+      <form class="review-form" id="reviewForm">
+        <input type="text" id="reviewName" class="review-form__input" placeholder="Твоё имя" required />
+        <textarea id="reviewText" class="review-form__textarea" placeholder="Что думаешь о серии «Притяжение земли»?" required></textarea>
+        <button type="submit" class="review-form__btn">Отправить отзыв</button>
+      </form>
+      <div class="reviews__list" id="reviewsList">
+        <div class="review-card" style="border-color: rgba(255, 183, 3, 0.4);">
+          <div class="review-card__header">
+            <span class="review-card__name">Зинин Платон</span>
+            <span class="review-card__date">Создатель сайта</span>
+          </div>
+          <p class="review-card__text">Серия топ! «Плато» реально мотивирует не сдаваться в учёбе и спорте. Надеюсь, вам понравился сайт 🔥</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="final__inner reveal">
+      <p class="final__small">Смешарики. Спорт</p>
+      <h2 class="final__title">«Плато» — это не стена.<br />Это трамплин.</h2>
+      <p class="final__text">История Копатыча и Кар-Карыча напоминает: сила приходит не сразу. Но тот, кто тренируется каждый день, однажды поднимет то, что казалось невозможным.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Фан-сайт по серии «Притяжение земли» · Смешарики. Спорт</p>
+    <p class="footer__small">Сделано с упорством, как у Копатыча 💪</p>
+    <p class="footer__small" style="margin-top: 15px; color: var(--accent); font-weight: bold;">Автор: Зинин Платон Павлович · ИС1-25</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
